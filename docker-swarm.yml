@@ -1,0 +1,82 @@
+
+
+services:
+  redis:
+    image: valkey/valkey
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 60s
+        order: start-first
+        failure_action: rollback
+        monitor: 60s
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+    networks:
+      - glitchtip-nw
+
+  web:
+    image: glitchtip/glitchtip
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 60s
+        order: start-first
+        failure_action: rollback
+        monitor: 60s
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+    networks:
+      - glitchtip-nw
+    ports:
+      - "8000:8000"
+    volumes: 
+      - /mnt/glusterfs/glitchtip/code/uploads:/code/uploads
+
+  worker:
+    image: glitchtip/glitchtip
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 60s
+        order: start-first
+        failure_action: rollback
+        monitor: 60s
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+    networks:
+      - glitchtip-nw
+    command: ./bin/run-celery-with-beat.sh
+    volumes: 
+      - /mnt/glusterfs/glitchtip/code/uploads:/code/uploads
+
+  migrate:
+    image: glitchtip/glitchtip
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 60s
+        order: start-first
+        failure_action: rollback
+        monitor: 60s
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+    networks:
+      - glitchtip-nw
+    command: ./bin/run-migrate.sh
+
+networks:
+  glitchtip-nw:
+    driver: overlay
