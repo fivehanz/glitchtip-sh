@@ -16,7 +16,7 @@ services:
         delay: 10s
         order: stop-first
     networks:
-      - glitchtip-nw
+      - nw
 
   web:
     image: glitchtip/glitchtip
@@ -33,7 +33,7 @@ services:
         delay: 10s
         order: stop-first
     networks:
-      - glitchtip-nw
+      - nw
     ports:
       - "48000:8000"
     volumes: 
@@ -54,7 +54,7 @@ services:
         delay: 10s
         order: stop-first
     networks:
-      - glitchtip-nw
+      - nw
     command: ./bin/run-celery-with-beat.sh
     volumes: 
       - /mnt/glusterfs/glitchtip/code/uploads:/code/uploads
@@ -74,9 +74,9 @@ services:
         delay: 10s
         order: stop-first
     networks:
-      - glitchtip-nw
+      - nw
     command: ./bin/run-migrate.sh
 
 networks:
-  glitchtip-nw:
+  nw:
     driver: overlay
