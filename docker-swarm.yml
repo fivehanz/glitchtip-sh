@@ -35,7 +35,7 @@ services:
     networks:
       - glitchtip-nw
     ports:
-      - "8000:8000"
+      - "48000:8000"
     volumes: 
       - /mnt/glusterfs/glitchtip/code/uploads:/code/uploads
 
