@@ -20,6 +20,8 @@ services:
 
   web:
     image: glitchtip/glitchtip
+    env_file:
+      - .env
     deploy:
       replicas: 1
       update_config:
@@ -41,6 +43,8 @@ services:
 
   worker:
     image: glitchtip/glitchtip
+    env_file:
+      - .env
     deploy:
       replicas: 1
       update_config:
@@ -61,6 +65,8 @@ services:
 
   migrate:
     image: glitchtip/glitchtip
+    env_file:
+      - .env
     deploy:
       replicas: 1
       update_config:
