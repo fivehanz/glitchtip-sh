@@ -19,7 +19,7 @@ services:
       - nw
 
   web:
-    image: glitchtip/glitchtip
+    image: glitchtip/glitchtip:v4.1
     env_file:
       - .env
     deploy:
@@ -42,7 +42,7 @@ services:
       - /mnt/glusterfs/glitchtip/code/uploads:/code/uploads
 
   worker:
-    image: glitchtip/glitchtip
+    image: glitchtip/glitchtip:v4.1
     env_file:
       - .env
     deploy:
@@ -64,7 +64,7 @@ services:
       - /mnt/glusterfs/glitchtip/code/uploads:/code/uploads
 
   migrate:
-    image: glitchtip/glitchtip
+    image: glitchtip/glitchtip:v4.1
     env_file:
       - .env
     deploy:
